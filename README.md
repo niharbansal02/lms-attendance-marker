@@ -1,6 +1,6 @@
 # LMS Attendance Marker
 
-Automatic script for lazy people to mark attendance on LMS automatically.
+Automatic script for lazy people to mark attendance on LMS for Practice School 1.
 
 ## Setup
 Add your LMS credentials and time slot to ```creds.json``` \
