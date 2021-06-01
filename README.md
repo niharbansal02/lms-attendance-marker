@@ -3,7 +3,7 @@
 Automatic script for lazy people to mark attendance on LMS automatically.
 
 ## Setup
-Add your LMS credentials and time slot to ```creds.json```
+Add your LMS credentials and time slot to ```creds.json``` \
 ![Image](credsSS.png)
 
 ## Installation
