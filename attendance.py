@@ -108,10 +108,10 @@ def startTheShow():
 
 
 if __name__ == "__main__":
-	# fh = open("creds.json")
-	# JSON = json.loads(fh.read())
-	# schedule.every().day.at(JSON["time_24"]).do(startTheShow)
-	# while True:
-	# 	schedule.run_pending()
+	fh = open("creds.json")
+	JSON = json.loads(fh.read())
+	schedule.every().day.at(JSON["time_24"]).do(startTheShow)
+	while True:
+		schedule.run_pending()
 
-	startTheShow()
+	# startTheShow()
