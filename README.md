@@ -9,7 +9,7 @@ Add your LMS credentials and time slot to ```creds.json``` \
 ## Installation
 Run the following to meet the requirements:
 `
-$ pip -r requirements.txt
+$ pip install -r requirements.txt
 `
 
 - Make sure ```selenium``` and Chrome Webdriver are properly installed.
