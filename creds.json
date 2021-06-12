@@ -1,9 +1,5 @@
 {
-    "username": "2019a4ps0984h",
-    "password": "Cricket@07",
-    "time_24": "18:12",
-    "slot": {
-        "s1": ["Morning Attendance", "08:00", "10:00"],
-        "s2": ["Evening Attendance", "17:00", "19:00"]
-    }
+    "email": "f2019****@******.bits-pilani.ac.in",
+    "password": "**********",
+    "time_24": "HH:MM"
 }
