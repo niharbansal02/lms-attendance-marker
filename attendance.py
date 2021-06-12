@@ -8,15 +8,6 @@ from selenium.webdriver.chrome.options import Options
 import time, datetime, schedule
 import json
 
-def repeater(func):
-	while True:
-		try:
-			retVal = func()
-			break
-		except:
-			continue
-	
-	return retVal
 
 def getDateToday():
 	now = datetime.datetime.now()
@@ -32,10 +23,19 @@ def wait_find_15(driver, method, path):
 	ele = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((method, path)))
 	return ele
 
+def getSlot():
+	fh = open("creds.json")
+	JSON = json.loads(fh.read())
+	slots = JSON["slot"]
+	return slots
+	print(slots)
+	fh.close()
+
+
 def startTheShow():
 	options = Options()
-	options.add_argument('--headless')
-	options.add_argument('--disable-gpu')  # Last I checked this was necessary.
+	# options.add_argument('--headless')
+	# options.add_argument('--disable-gpu') 
 	# driver = webdriver.Chrome(CHROMEDRIVER_PATH, )
 
 	# browser = webdriver.Chrome(executable_path=r"/usr/bin/chromedriver", options=options)
@@ -43,9 +43,8 @@ def startTheShow():
 	# browser = webdriver.Chrome()
 	browser.maximize_window()
 	browser.delete_all_cookies()
-	repeater(lambda: browser.get("https://lms-practice-school.bits-pilani.ac.in/my/"))
+	browser.get("https://lms-practice-school.bits-pilani.ac.in/my/")
 	
-
 	userNameField = "//input[@id='username']"
 	passField = "//input[@id='password']"
 	userName, password = getCreds()
@@ -64,17 +63,9 @@ def startTheShow():
 	psName = "//body/div[@id='page-wrapper']/div[@id='page']/div[@id='page-content']/div[@id='region-main-box']/section[@id='region-main']/div[1]/aside[1]/section[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]/div[1]/a[1]/span[3]"
 	wait_find_15(browser, By.XPATH, psName).click()
 
-	# *Mark as done Button
-	# markAsDone = "//body/div[@id='page-wrapper']/div[@id='page']/div[@id='page-content']/div[@id='region-main-box']/section[@id='region-main']/div[1]/div[1]/ul[1]/li[2]/div[3]/ul[1]/li[1]/div[1]/div[1]/div[2]/div[2]/div[1]/button[1]"
-	# try:
-	# 	markEle = wait_find_15(browser, By.XPATH, markAsDone)
-	# except TimeoutException:
-	# 	print("No Attendance section OR No Button 'Mark as Done' or 'Done'")
-	# 	browser.quit()
-	# 	return
-
 	# *Select Attendance
-	attendance = "//body/div[@id='page-wrapper']/div[@id='page']/div[@id='page-content']/div[@id='region-main-box']/section[@id='region-main']/div[1]/div[1]/ul[1]/li[2]/div[3]/ul[1]/li[1]/div[1]/div[1]/div[2]/div[1]/a[1]/span[1]"
+	attendance = "(//span[contains(text(), 'Attendance')])[2]"
+	# attendance = "//body/div[@id='page-wrapper']/div[@id='page']/div[@id='page-content']/div[@id='region-main-box']/section[@id='region-main']/div[1]/div[1]/ul[1]/li[2]/div[3]/ul[1]/li[1]/div[1]/div[1]/div[2]/div[1]/a[1]/span[1]"
 	try:
 		wait_find_15(browser, By.XPATH, attendance).click()
 	except TimeoutException:
@@ -106,12 +97,19 @@ def startTheShow():
 	browser.quit()
 
 
-
 if __name__ == "__main__":
-	fh = open("creds.json")
-	JSON = json.loads(fh.read())
-	schedule.every().day.at(JSON["time_24"]).do(startTheShow)
-	while True:
-		schedule.run_pending()
+	# fh = open("creds.json")
+	# JSON = json.loads(fh.read())
+	# schedule.every().day.at(JSON["time_24"]).do(startTheShow)
+	# while True:
+	# 	schedule.run_pending()
 
 	# startTheShow()
+	for sl, vl in getSlot().items():
+		print(sl, vl[0])
+
+'''
+Slot
+Morning Attendance		0800 1000
+Evening Attendance		1700 1900
+'''
